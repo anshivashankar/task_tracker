@@ -19,7 +19,8 @@ defmodule TaskTrackerWeb.TaskController do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
-        |> redirect(to: task_path(conn, :show, task))
+        |> redirect(to: Routes.task_path(conn, :show, task))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -43,7 +44,8 @@ defmodule TaskTrackerWeb.TaskController do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task updated successfully.")
-        |> redirect(to: task_path(conn, :show, task))
+        |> redirect(to: Routes.task_path(conn, :show, task))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", task: task, changeset: changeset)
     end
@@ -55,6 +57,6 @@ defmodule TaskTrackerWeb.TaskController do
 
     conn
     |> put_flash(:info, "Task deleted successfully.")
-    |> redirect(to: task_path(conn, :index))
+    |> redirect(to: Routes.task_path(conn, :index))
   end
 end

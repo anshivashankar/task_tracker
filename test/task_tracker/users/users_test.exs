@@ -41,8 +41,9 @@ defmodule TaskTracker.UsersTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      assert {:ok, user} = Users.update_user(user, @update_attrs)
-      assert %User{} = user
+      assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
+
+      
       assert user.email == "some updated email"
       assert user.name == "some updated name"
     end

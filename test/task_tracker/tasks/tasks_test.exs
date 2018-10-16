@@ -44,8 +44,9 @@ defmodule TaskTracker.TasksTest do
 
     test "update_task/2 with valid data updates the task" do
       task = task_fixture()
-      assert {:ok, task} = Tasks.update_task(task, @update_attrs)
-      assert %Task{} = task
+      assert {:ok, %Task{} = task} = Tasks.update_task(task, @update_attrs)
+
+      
       assert task.completion == false
       assert task.description == "some updated description"
       assert task.time == 43

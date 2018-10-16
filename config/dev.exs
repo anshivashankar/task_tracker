@@ -5,13 +5,13 @@ use Mix.Config
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
-# with brunch.io to recompile .js and .css sources.
+# with webpack to recompile .js and .css sources.
 config :task_tracker, TaskTrackerWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
+  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--mode", "development", "--watch-stdin",
                     cd: Path.expand("../assets", __DIR__)]]
 
 # ## SSL Support
@@ -48,9 +48,11 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
+
 # Configure your database
 config :task_tracker, TaskTracker.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "task_tracker",
   password: "rae0eCa7Booc",
   database: "task_tracker_dev",

@@ -5,37 +5,27 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
-  </div>
+  <%= label f, :title %>
+  <%= text_input f, :title %>
+  <%= error_tag f, :title %>
 
-  <div class="form-group">
-    <%= label f, :description, class: "control-label" %>
-    <%= textarea f, :description, class: "form-control" %>
-    <%= error_tag f, :description %>
-  </div>
+  <%= label f, :description %>
+  <%= textarea f, :description %>
+  <%= error_tag f, :description %>
 
-  <div class="form-group">
-    <%= label f, :user, class: "control-label" %>
-    <%= number_input f, :user, class: "form-control" %>
-    <%= error_tag f, :user %>
-  </div>
+  <%= label f, :user %>
+  <%= number_input f, :user %>
+  <%= error_tag f, :user %>
 
-  <div class="form-group">
-    <%= label f, :time, class: "control-label" %>
-    <%= number_input f, :time, class: "form-control" %>
-    <%= error_tag f, :time %>
-  </div>
+  <%= label f, :time %>
+  <%= number_input f, :time %>
+  <%= error_tag f, :time %>
 
-  <div class="form-group">
-    <%= label f, :completion, class: "control-label" %>
-    <%= checkbox f, :completion, class: "checkbox" %>
-    <%= error_tag f, :completion %>
-  </div>
+  <%= label f, :completion %>
+  <%= checkbox f, :completion %>
+  <%= error_tag f, :completion %>
 
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+  <div>
+    <%= submit "Save" %>
   </div>
 <% end %>

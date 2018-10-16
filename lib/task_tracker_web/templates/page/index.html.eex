@@ -6,6 +6,7 @@
 <div>
     <h3>Log in or sign up: </h3>
     <h4><a href=/users/new>Sign up </a></h4>
+    <h4><%= link "Register", to: Routes.user_path(@conn, :new) %></h4>
     <h4><a href=/users>Log in</a></h4>
 </div>
 

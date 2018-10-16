@@ -37,6 +37,13 @@ defmodule TaskTracker.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  # get_user and get_user_by_email inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/11-add-users/notes.html
+  def get_user(id), do: Repo.get(User, id)
+
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+  end
+
   @doc """
   Creates a user.
 

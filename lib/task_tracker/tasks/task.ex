@@ -5,10 +5,10 @@ defmodule TaskTracker.Tasks.Task do
 
   schema "tasks" do
     field :completion, :boolean, default: false
-    field :description, :string
-    field :time, :integer
+    field :description, :string, default: ""
+    field :time, :integer, default: 0
     field :title, :string
-    field :user, :integer
+    field :user, :integer, default: 0
 
     timestamps()
   end

@@ -14,6 +14,7 @@
   <%= error_tag f, :email %>
 
   <div>
+    <p>Fields marked with * are mandatory</p>
     <%= submit "Save" %>
   </div>
 <% end %>

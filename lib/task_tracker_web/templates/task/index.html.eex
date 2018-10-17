@@ -1,25 +1,37 @@
 <h1>Task List</h1>
-
-<table>
-  <thead>
+<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>
+<table class="table table-striped">
+  <thead class="thead-light">
     <tr>
-      <th>Title</th>
+      <th>Task Name</th>
       <th>Description</th>
-      <th>User</th>
-      <th>Time</th>
-      <th>Completion</th>
+      <th>Assigned to</th>
+      <th>Time taken</th>
+      <th></th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
+  <% user_name = TaskTracker.Users.get_user(task.user) %>
     <tr>
       <td><%= task.title %></td>
       <td><%= task.description %></td>
-      <td><%= task.user %></td>
+
+      <%= if (user_name == nil) do %>
+        <% user_name = %{name: "Not assigned"} %>
+        <td><%= user_name.name %></td>
+      <% else %>
+        <td> <%= user_name.name %></td>
+      <% end %>
+
       <td><%= task.time %></td>
-      <td><%= task.completion %></td>
+      <%= if task.completion do %>
+        <td>&#10004;</td>
+      <% else %>
+        <td>&#10006;</td>
+      <% end %>
 
       <td>
         <%#= link "Show", to: Routes.task_path(@conn, :show, task) %>
@@ -31,4 +43,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>

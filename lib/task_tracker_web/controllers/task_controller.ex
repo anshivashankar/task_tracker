@@ -19,7 +19,8 @@ defmodule TaskTrackerWeb.TaskController do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
-        |> redirect(to: Routes.task_path(conn, :show, task))
+        #|> redirect(to: Routes.task_path(conn, :show, task))
+        |> redirect(to: Routes.task_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -28,7 +29,13 @@ defmodule TaskTrackerWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
-    render(conn, "show.html", task: task)
+    user_name = TaskTracker.Users.get_user(task.user)
+    if (user_name == nil) do
+      user_name = %{name: "Not assigned"}
+      render(conn, "show.html", task: task, user: user_name)
+    else
+      render(conn, "show.html", task: task, user: user_name)
+    end
   end
 
   def edit(conn, %{"id" => id}) do
@@ -44,7 +51,8 @@ defmodule TaskTrackerWeb.TaskController do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task updated successfully.")
-        |> redirect(to: Routes.task_path(conn, :show, task))
+        #|> redirect(to: Routes.task_path(conn, :show, task))
+        |> redirect(to: Routes.task_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", task: task, changeset: changeset)

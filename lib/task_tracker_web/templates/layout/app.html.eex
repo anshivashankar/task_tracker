@@ -17,6 +17,7 @@
               User: <%= @current_user.name %>
               <%= link("Logout", to: Routes.session_path(@conn, :delete),
                 method: :delete) %>
+              <%= link("Profile", to: Routes.user_path(@conn, :show, @current_user)) %>
             </p>
           <% else %>
             <%= form_for @conn, Routes.session_path(@conn, :create),

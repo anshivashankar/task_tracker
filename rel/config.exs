@@ -34,10 +34,22 @@ environment :dev do
   set cookie: :"(uIXyK8awR_q:,C7N15JQFqogU0dn`QEjGIL8D8&]:1}iCMrHtxH5DU[SI:tS(2q"
 end
 
+# get_secret from http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/11-add-users/notes.html
+get_secret = fn name ->
+  base = Path.expand("~/.config/task_tracker")
+  File.mkdir_p!(base)
+  path = Path.join(base, name)
+  unless File.exists?(path) do
+    secret = Base.encode16(:crypto.strong_rand_bytes(32))
+    File.write!(path, secret)
+  end
+  String.trim(File.read!(path))
+end
+
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: :"I=r6[iBpnPmeA.Nxv6E.4P_|R;jy0Fo^x,_>_WI<&vVT6D(iow/.F&ldo;K:TeO^"
+  set cookie: String.to_atom(get_secret.("prod_cookie"))
 end
 
 # You may define one or more releases in this file.

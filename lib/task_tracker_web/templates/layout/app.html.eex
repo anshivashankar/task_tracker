@@ -10,15 +10,18 @@
   <body>
     <header>
       <section class="container">
-        <nav role="navigation">
+        <nav class="navbar navbar-extend-sm">
+        <div class="col-16">
+        <h1 class="navbar-brand">Task Tracker</h1><br>
+        <p class="navbar-text">Made by Ashwin ShivaShankar Industries</p>
+        </div>
         <div class="col-4">
           <%= if @current_user do %>
-            <p>
-              User: <%= @current_user.name %>
+            <div class="text-right">
+              User: <%= @current_user.name %><br>
               <%= link("Logout", to: Routes.session_path(@conn, :delete),
-                method: :delete) %>
-              <%= link("Profile", to: Routes.user_path(@conn, :show, @current_user)) %>
-            </p>
+                method: :delete) %><br>
+              <%= link("Profile", to: Routes.user_path(@conn, :show, @current_user)) %></div>
           <% else %>
             <%= form_for @conn, Routes.session_path(@conn, :create),
                 [class: "form-inline"], fn f -> %>
@@ -34,8 +37,12 @@
       </section>
     </header>
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

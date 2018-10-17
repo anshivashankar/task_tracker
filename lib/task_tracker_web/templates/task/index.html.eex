@@ -1,6 +1,6 @@
 <h1>Task List</h1>
-<span><%= link "New Task", to: Routes.task_path(@conn, :new) %></span>
-<table class="table table-striped">
+<span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary"%></span>
+<table class="table table-striped table-hover">
   <thead class="thead-light">
     <tr>
       <th>Task Name</th>

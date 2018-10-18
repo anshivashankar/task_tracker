@@ -46,16 +46,19 @@ defmodule TaskTrackerWeb.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
-
-    case Tasks.update_task(task, task_params) do
-      {:ok, task} ->
-        conn
-        |> put_flash(:info, "Task updated successfully.")
-        #|> redirect(to: Routes.task_path(conn, :show, task))
-        |> redirect(to: Routes.task_path(conn, :index))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", task: task, changeset: changeset)
+    if(rem(elem(Integer.parse(task_params["time"]), 0), 15) != 0) do
+      put_flash(conn, :error, "Must be a 15 minute increment.")
+      |> redirect(to: Routes.task_path(conn, :index))
+    else
+      case Tasks.update_task(task, task_params) do
+        {:ok, task} ->
+          conn
+          |> put_flash(:info, "Task updated successfully.")
+          #|> redirect(to: Routes.task_path(conn, :show, task))
+          |> redirect(to: Routes.task_path(conn, :index))
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "edit.html", task: task, changeset: changeset)
+      end
     end
   end
 

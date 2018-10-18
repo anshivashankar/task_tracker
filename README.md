@@ -18,3 +18,13 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+
+## Design considerations:
+
+The user has a name, email, and id. This allows us to allow logins via email, but refer to logged in users by their preferred name. This is because everyone has unique emails but not unique names.
+Additionally, I made the task name and description uneditable after creation. This is because the task will not change after creation. If the task needs to change, then simply update the task to be finished and create a new one.I updated the completion status to be check marks and X's since it looks cool.
+I made a profile button in the navbar. This is because a user would want to see their email and ID. 
+
+I also made sure to allow non-logged in users the ability to get in and use the app. 
+

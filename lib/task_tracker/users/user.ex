@@ -6,6 +6,8 @@ defmodule TaskTracker.Users.User do
   schema "users" do
     field :email, :string
     field :name, :string
+    has_many :users, TaskTracker.Users.User
+    has_many :tasks, TaskTracker.Tasks.Task
 
     timestamps()
   end

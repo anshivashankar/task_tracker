@@ -3,7 +3,9 @@ defmodule TaskTracker.Repo.Migrations.AddTasksRelation do
 
   def change do
     alter table(:tasks) do
-      add :assigned_user, references(:users, on_delete: :nilify_all)
+      add :user_id, references(:users, on_delete: :nilify_all)
     end
+
+    create index(:tasks, [:user_id])
   end
 end

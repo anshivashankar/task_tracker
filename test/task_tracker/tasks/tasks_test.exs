@@ -35,7 +35,7 @@ defmodule TaskTracker.TasksTest do
       assert task.description == "some description"
       assert task.time == 42
       assert task.title == "some title"
-      assert task.user == 42
+      assert task.user_num == 42
     end
 
     test "create_task/1 with invalid data returns error changeset" do
@@ -51,7 +51,7 @@ defmodule TaskTracker.TasksTest do
       assert task.description == "some updated description"
       assert task.time == 43
       assert task.title == "some updated title"
-      assert task.user == 43
+      assert task.user_num == 43
     end
 
     test "update_task/2 with invalid data returns error changeset" do

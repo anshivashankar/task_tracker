@@ -29,7 +29,7 @@ defmodule TaskTrackerWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
-    user_name = TaskTracker.Users.get_user(task.user)
+    user_name = TaskTracker.Users.get_user(task.user_num)
     if (user_name == nil) do
       user_name = %{name: "Not assigned"}
       render(conn, "show.html", task: task, user: user_name)

@@ -14,7 +14,7 @@
   <%#= error_tag f, :description %>
 
   <b><%= "Assignee ID number" %></b>
-  <%= number_input f, :user , class: "form-control" %>
+  <%= number_input f, :user_num , class: "form-control" %>
   <%= error_tag f, :user %>
   <br>
   <b><%= "Time Taken (in increments of 15)"  %></b>

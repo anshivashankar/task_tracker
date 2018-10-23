@@ -18,7 +18,8 @@
 
   <li>
     <strong>Manager:</strong>
-    <%= @user.manager.name %>
+    <% manager_name = @user.manager %>
+    <%= if manager_name == nil, do: "No manager", else: manager_name.name %>
   </li>
 
 

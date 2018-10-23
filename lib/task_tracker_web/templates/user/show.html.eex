@@ -18,8 +18,7 @@
 
   <li>
     <strong>Manager:</strong>
-    <%#= IO.inspect(@user) %>
-    <%#= @user.user %>
+    <%= @user.manager.name %>
   </li>
 
 

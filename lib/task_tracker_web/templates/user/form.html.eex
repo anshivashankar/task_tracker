@@ -13,9 +13,9 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= label f, :user_id %>
-  <%= text_input f, :user_id %>
-  <%= error_tag f, :user_id %>
+  <%= label f, :manager_id %>
+  <%= text_input f, :manager_id %>
+  <%= error_tag f, :manager_id %>
 
   <div>
     <p>Fields marked with * are mandatory</p>

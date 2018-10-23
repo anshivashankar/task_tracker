@@ -36,10 +36,10 @@ defmodule TaskTracker.Users do
 
   """
   def get_user!(id) do
-    IO.inspect(Repo.get!(User, id))
-    thing = Repo.one! from u in User,
+    #IO.inspect(Repo.get!(User, id))
+    Repo.one! from u in User,
       where: u.id == ^id,
-      preload: [:user]
+      preload: [:manager]
     #IO.inspect(thing)
     #Repo.get!(User, id)
   end

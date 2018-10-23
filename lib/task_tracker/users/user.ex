@@ -7,7 +7,7 @@ defmodule TaskTracker.Users.User do
     field :email, :string
     field :name, :string
     field :is_manager, :boolean
-    has_one :user, TaskTracker.Users.User
+    belongs_to :manager, TaskTracker.Users.User
     has_many :task, TaskTracker.Tasks.Task
 
     timestamps()
@@ -16,7 +16,7 @@ defmodule TaskTracker.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email])
+    |> cast(attrs, [:name, :email, :manager_id])
     |> validate_required([:name, :email])
   end
 end

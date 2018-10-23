@@ -16,6 +16,13 @@
     <%= @user.id %> - used for assigning tasks
   </li>
 
+  <li>
+    <strong>Manager:</strong>
+    <%#= IO.inspect(@user) %>
+    <%#= @user.user %>
+  </li>
+
+
 </ul>
 
 <span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>

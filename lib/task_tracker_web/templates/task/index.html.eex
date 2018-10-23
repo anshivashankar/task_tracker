@@ -14,7 +14,8 @@
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
-  <% user_name = TaskTracker.Users.get_user(task.user_num) %>
+  <% user_num =  if task.user_id == nil, do: 0, else: task.user_id %>
+  <% user_name = TaskTracker.Users.get_user(user_num) %>
     <tr>
       <td><%= task.title %></td>
       <td><%= task.description %></td>

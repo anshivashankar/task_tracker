@@ -12,7 +12,7 @@
   <%#= label f, :description %>
   <%#= textarea f, :description %>
   <%#= error_tag f, :description %>
-
+  
   <b><%= "Assignee ID number (leave blank to unassign)" %></b>
   <%= number_input f, :user_id , class: "form-control" %>
   <%= error_tag f, :user %>

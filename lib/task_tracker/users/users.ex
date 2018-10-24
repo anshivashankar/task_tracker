@@ -39,7 +39,7 @@ defmodule TaskTracker.Users do
     #IO.inspect(Repo.get!(User, id))
     Repo.one! from u in User,
       where: u.id == ^id,
-      preload: [:manager]
+      preload: [:manager, :task]
     #IO.inspect(thing)
     #Repo.get!(User, id)
   end
@@ -51,9 +51,12 @@ defmodule TaskTracker.Users do
     Repo.get_by(User, email: email)
   end
 
-  #def get_underlings_of(id) do
-  #  get_user!(id).user_id
-  #end
+  def get_underlings_of(id) do
+    Repo.all from u in User,
+      where: u.manager_id == ^id,
+      preload: [:manager, :task]
+    #get_user!(id).user_id
+  end
 
   @doc """
   Creates a user.

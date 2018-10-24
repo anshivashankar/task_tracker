@@ -11,7 +11,6 @@ defmodule TaskTracker.Tasks.Task do
     field :user_num, :integer, default: 0
     belongs_to :user, TaskTracker.Users.User
 
-
     timestamps()
   end
 

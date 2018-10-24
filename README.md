@@ -1,24 +1,5 @@
 # TaskTracker
 
-To start your Phoenix server:
-
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
-
 
 ## Design considerations:
 
@@ -27,4 +8,9 @@ Additionally, I made the task name and description uneditable after creation. Th
 I made a profile button in the navbar. This is because a user would want to see their email and ID. 
 
 I also made sure to allow non-logged in users the ability to get in and use the app. 
+
+# Design considerations part 2:
+
+The Task Report for each manager (where the manager can see all of the assigned tasks to their underlings) is in their profile, since the profile also must list the underlings. I thought it only made sense that the user would also want to know what tasks their underlings also had on the same page.
+Additionally, I kept the functionality that all users are able to see all tasks. I simply disabled the option for the ability to reassign tasks to those who were not the direct manager.
 

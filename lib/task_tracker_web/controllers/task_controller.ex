@@ -49,6 +49,7 @@ defmodule TaskTrackerWeb.TaskController do
     if(rem(elem(Integer.parse(task_params["time"]), 0), 15) != 0) do
       put_flash(conn, :error, "Must be a 15 minute increment.")
       |> redirect(to: Routes.task_path(conn, :index))
+    # do check for correct user here.
     else
       case Tasks.update_task(task, task_params) do
         {:ok, task} ->

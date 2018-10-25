@@ -1,5 +1,7 @@
-<h1>Show Task</h1>
-
+<h1>Edit Time</h1>
+<script>
+  window.time_block_path="<%= Routes.time_block_path(@conn, :create) %>";
+</script>
 <ul>
 
   <li>
@@ -26,6 +28,18 @@
     <strong>Completion:</strong>
     <%= @task.completion %>
   </li>
+
+  <b><%= "Time block" %></b>
+  <br>
+  <%# Here we display all of the time blocks. %>
+  <br>
+  <%# The below button will be our start/stop time block.%>
+  <%# Below button inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html %>
+  <button id="time-block-button"
+          class="btn btn-primary"
+          data-user-id="<%= @current_user.id %>"
+          data-task-id="<%= @task.id %>">Edit Time Block</button>
+
 
 </ul>
 

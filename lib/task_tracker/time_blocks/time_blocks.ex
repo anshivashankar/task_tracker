@@ -101,4 +101,12 @@ defmodule TaskTracker.TimeBlocks do
   def change_time_block(%TimeBlock{} = time_block) do
     TimeBlock.changeset(time_block, %{})
   end
+  
+  # given an id of a task, get all of the associated time blocks and return the sum.
+  def sum_times(id) do
+    time_blocks = Repo.all from t in TimeBlock,
+      where: t.task_id == ^id
+    List.foldl(time_blocks, 0, fn t, acc -> acc + IO.inspect(DateTime.diff(t.end_time, t.start_time)) end)
+  end
+
 end

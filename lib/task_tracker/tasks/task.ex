@@ -10,13 +10,14 @@ defmodule TaskTracker.Tasks.Task do
     field :title, :string
     field :user_num, :integer, default: 0
     belongs_to :user, TaskTracker.Users.User
+    has_many :time_blocks, TaskTracker.TimeBlocks.TimeBlock
 
     timestamps()
   end
 
   @doc false
   def changeset(task, attrs) do
-    IO.inspect(attrs)
+    #IO.inspect(attrs)
     #user_id = case Map.fetch(attrs, "user_id") do
     #  {:ok, val} -> val
     #  _ -> nil

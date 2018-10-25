@@ -19,7 +19,7 @@ defmodule TaskTracker.Tasks do
   """
   def list_tasks do
     Repo.all(Task)
-    |> IO.inspect
+    #|> IO.inspect
   end
 
   @doc """

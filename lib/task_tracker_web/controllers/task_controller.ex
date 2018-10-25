@@ -46,11 +46,21 @@ defmodule TaskTrackerWeb.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
-    if(rem(elem(Integer.parse(task_params["time"]), 0), 15) != 0) do
-      put_flash(conn, :error, "Must be a 15 minute increment.")
-      |> redirect(to: Routes.task_path(conn, :index))
-    # do check for correct user here.
-    else
+    current_user_id = conn.assigns[:current_user].id
+    |> TaskTracker.Users.get_user!
+    # the below is wrong. Fix. ID refers to task id.
+    assignee_user = elem(Integer.parse(task_params["user_id"]), 0)
+    |> TaskTracker.Users.get_user!
+    cond do
+      rem(elem(Integer.parse(task_params["time"]), 0), 15) != 0 ->
+        put_flash(conn, :error, "Must be a 15 minute increment.")
+        |> redirect(to: Routes.task_path(conn, :index))
+      # do check for correct user here.
+      assignee_user.manager == nil or current_user_id.id != assignee_user.manager.id ->
+        # get list of underling ids, and then check against those ids.
+        put_flash(conn, :error, "You're not the manager of the new assignee. Only direct managers can assign tasks.")
+        |> redirect(to: Routes.task_path(conn, :index))
+    true ->
       case Tasks.update_task(task, task_params) do
         {:ok, task} ->
           conn

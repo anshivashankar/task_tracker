@@ -10,6 +10,14 @@ defmodule TaskTrackerWeb.Router do
     plug TaskTrackerWeb.Plugs.FetchSession
   end
 
+  # Below pipeline inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html
+  pipeline :ajax do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug TaskTrackerWeb.Plugs.FetchSession
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -20,6 +28,12 @@ defmodule TaskTrackerWeb.Router do
     resources "/tasks", TaskController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
     get "/", PageController, :index
+  end
+
+  # Below scope inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html
+  scope "/ajax", TaskTrackerWeb do
+    pipe_through :ajax
+    resources "/timeblock", TimeBlockController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

@@ -20,6 +20,9 @@
     <strong>Manager:</strong>
     <% manager_name = @user.manager %>
     <%= if manager_name == nil, do: "No manager", else: manager_name.name %>
+    <%= if manager_name == nil do %>
+    <%= link("Change Manager", to: Routes.user_path(@conn, :edit, @current_user)) %>
+    <% end %>
   </li>
 
   <% underlings = TaskTracker.Users.get_underlings_of(@user.id) %>

@@ -38,7 +38,7 @@
   <button id="time-block-button"
           class="btn btn-primary"
           data-user-id="<%= @current_user.id %>"
-          data-task-id="<%= @task.id %>">Edit Time Block</button>
+          data-task-id="<%= @task.id %>">Start Time Block</button>
 
 
 </ul>

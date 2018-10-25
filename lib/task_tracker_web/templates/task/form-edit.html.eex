@@ -17,20 +17,9 @@
   <%= number_input f, :user_id , class: "form-control" %>
   <%= error_tag f, :user %>
   <br>
-  <b><%= "Time Taken (in increments of 15)"  %></b>
-  <%= number_input f, :time, class: "form-control" %>
-  <%= error_tag f, :time %>
-  <br>
-  <b><%= "Time block" %></b>
-  <br>
-  <%# Here we display all of the time blocks. %>
-  <br>
-  <%# The below button will be our start/stop time block.%>
-  <%# Below button inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html %>
-  <button id="time-block-button"
-          data-user-id="<%= @current_user.id %>"
-          data-task-id="<%= @task.id %>">Edit Time Block</button>
-  <br>
+  <b><%#= "Time Taken (in increments of 15)"  %></b>
+  <%#= number_input f, :time, class: "form-control" %>
+  <%#= error_tag f, :time %>
   <br>
   <b><%= "Done?" %></b>
   <%= checkbox f, :completion %>

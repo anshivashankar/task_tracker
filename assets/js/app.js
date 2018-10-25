@@ -37,6 +37,7 @@ $(function () {
     if(!started) {
       start_time = new Date();
       started = true;
+      $('#time-block-button').text(`End time block`);
     }
     else {
       end_time = new Date();
@@ -55,9 +56,9 @@ $(function () {
         dataType: "json",
         contentType: "application/json; charset=UTF-8",
         data: text,
-        //success: (resp) => {
-          //$('#rating-form').text(`(your rating: ${resp.data.stars})`);
-        //},
+        success: (resp) => {
+          $('#time-block-button').text(`Start time block`);
+        },
       });
     }
   });

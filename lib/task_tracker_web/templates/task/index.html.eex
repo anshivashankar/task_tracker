@@ -6,7 +6,6 @@
       <th>Task Name</th>
       <th>Description</th>
       <th>Assigned to</th>
-      <th>Time taken</th>
       <th>Time Block</th>
       <th></th>
 
@@ -30,8 +29,6 @@
 
       <td><%= TaskTracker.TimeBlocks.sum_times(task.id) %></td>
 
-
-      <td><%= task.time %></td>
       <%= if task.completion do %>
         <td>&#10004;</td>
       <% else %>

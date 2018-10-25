@@ -25,9 +25,25 @@ import _ from 'lodash';
 // below code inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html
 
 var started = false;
-var start_time
+var start_time;
 
 $(function () {
+
+
+
+  $('#delete-button').click((ev) => {
+    let time_block_id = $(ev.target).data('time-id');
+    $.ajax(`${time_block_path}/${time_block_id}`, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: (resp) => {
+        window.location.reload();
+      }
+    });
+  });
+
   $('#time-block-button').click((ev) => {
     let current_user_id = $(ev.target).data('user-id');
     //let start_time = $(ev.target).data('start_time');
@@ -58,6 +74,7 @@ $(function () {
         data: text,
         success: (resp) => {
           $('#time-block-button').text(`Start time block`);
+          window.location.reload();
         },
       });
     }

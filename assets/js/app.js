@@ -29,7 +29,33 @@ var start_time;
 
 $(function () {
 
-
+  $('#time-block-create').click((ev) => {
+    let task_id = $(ev.target).data('task-id');
+    let start_time = $('#new_start').val() + ":00.000Z";
+    let end_time = $('#new_end').val() + ":00.000Z";
+    console.log(start_time);
+    console.log(end_time);
+    let text = JSON.stringify({
+      time_block: {
+        start_time: start_time,
+        end_time: end_time,
+        task_id: task_id,
+      },
+    });
+    console.log(text);
+    $.ajax(time_block_path, {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: text,
+      success: (resp) => {
+        window.location.reload();
+      },
+      error: (resp) => {
+        console.log(resp);
+      },
+    });
+  });
 
   $('#delete-button').click((ev) => {
     let time_block_id = $(ev.target).data('time-id');
@@ -46,8 +72,6 @@ $(function () {
 
   $('#time-block-button').click((ev) => {
     let current_user_id = $(ev.target).data('user-id');
-    //let start_time = $(ev.target).data('start_time');
-    //let end_time = $(ev.target).data('end_time');
     let task_id = $(ev.target).data('task-id');
     let end_time;
     if(!started) {
@@ -58,7 +82,6 @@ $(function () {
     else {
       end_time = new Date();
       started = false;
-      //let task_id = $(ev.target).data('product-id');
       let text = JSON.stringify({
         time_block: {
           start_time: start_time,
@@ -66,7 +89,7 @@ $(function () {
           task_id: task_id,
         },
       });
-
+      console.log(text);
       $.ajax(time_block_path, {
         method: "post",
         dataType: "json",

@@ -32,13 +32,22 @@
       <% end %>
     </tbody>
   </table>
+  <input type="datetime-local" id="new_start">
+  <input type="datetime-local" id="new_end">
+  <button
+  id="time-block-create"
+  data-task-id="<%= @task.id %>"
+  class="btn btn-secondary">
+  Create New
+  </button>
+  <br>
   <br>
   <%# The below button will be our start/stop time block.%>
   <%# Below button inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html %>
   <button id="time-block-button"
           class="btn btn-primary"
           data-user-id="<%= @current_user.id %>"
-          data-task-id="<%= @task.id %>">Start Time Block</button>
+          data-task-id="<%= @task.id %>">Start Live Time Block</button>
 </ul>
 
 <span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>

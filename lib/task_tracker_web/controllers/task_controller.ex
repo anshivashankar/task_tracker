@@ -29,7 +29,7 @@ defmodule TaskTrackerWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
-    user_name = TaskTracker.Users.get_user(task.user)
+    user_name = TaskTracker.Users.get_user(task.user_id)
     if (user_name == nil) do
       user_name = %{name: "Not assigned"}
       render(conn, "show.html", task: task, user: user_name)
@@ -46,19 +46,56 @@ defmodule TaskTrackerWeb.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
-    if(rem(elem(Integer.parse(task_params["time"]), 0), 15) != 0) do
-      put_flash(conn, :error, "Must be a 15 minute increment.")
-      |> redirect(to: Routes.task_path(conn, :index))
-    else
+
+    current_user_id = conn.assigns[:current_user].id
+    |> TaskTracker.Users.get_user!
+
+    IO.inspect(task_params)
+
+    IO.inspect(Integer.parse(task_params["user_id"]))
+    
+    if task_params["user_id"] == "" do
       case Tasks.update_task(task, task_params) do
         {:ok, task} ->
           conn
           |> put_flash(:info, "Task updated successfully.")
-          #|> redirect(to: Routes.task_path(conn, :show, task))
           |> redirect(to: Routes.task_path(conn, :index))
         {:error, %Ecto.Changeset{} = changeset} ->
           render(conn, "edit.html", task: task, changeset: changeset)
       end
+    else
+
+    assignee_user = elem(Integer.parse(task_params["user_id"]), 0)
+    |> TaskTracker.Users.get_user!
+
+    #is_not_manager? = assignee_user.manager == nil or current_user_id.id != assignee_user.manager.id 
+
+    cond do
+      task.user_id == assignee_user.id ->
+      case Tasks.update_task(task, task_params) do
+        {:ok, task} ->
+          conn
+          |> put_flash(:info, "Task updated successfully.")
+          |> redirect(to: Routes.task_path(conn, :index))
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "edit.html", task: task, changeset: changeset)
+      end
+
+      assignee_user.manager == nil or current_user_id.id != assignee_user.manager.id ->
+        put_flash(conn, :error, "You're not the manager of the new assignee. Only direct managers can assign tasks.")
+        |> redirect(to: Routes.task_path(conn, :index))
+
+      true ->
+        case Tasks.update_task(task, task_params) do
+          {:ok, task} ->
+            conn
+            |> put_flash(:info, "Task updated successfully.")
+            #|> redirect(to: Routes.task_path(conn, :show, task))
+            |> redirect(to: Routes.task_path(conn, :index))
+          {:error, %Ecto.Changeset{} = changeset} ->
+            render(conn, "edit.html", task: task, changeset: changeset)
+        end
+    end
     end
   end
 

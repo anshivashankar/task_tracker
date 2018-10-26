@@ -19,6 +19,7 @@ defmodule TaskTracker.Tasks do
   """
   def list_tasks do
     Repo.all(Task)
+    #|> IO.inspect
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule TaskTracker.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id), do: Repo.get!(Task, id)|>Repo.preload(:time_blocks)
 
   @doc """
   Creates a task.

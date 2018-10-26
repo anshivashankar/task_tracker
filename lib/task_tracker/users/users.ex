@@ -35,13 +35,27 @@ defmodule TaskTracker.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    #IO.inspect(Repo.get!(User, id))
+    Repo.one! from u in User,
+      where: u.id == ^id,
+      preload: [:manager, :task]
+    #IO.inspect(thing)
+    #Repo.get!(User, id)
+  end
 
   # get_user and get_user_by_email inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/11-add-users/notes.html
   def get_user(id), do: Repo.get(User, id)
 
   def get_user_by_email(email) do
     Repo.get_by(User, email: email)
+  end
+
+  def get_underlings_of(id) do
+    Repo.all from u in User,
+      where: u.manager_id == ^id,
+      preload: [:manager, :task]
+    #get_user!(id).user_id
   end
 
   @doc """

@@ -6,7 +6,7 @@
       <th>Task Name</th>
       <th>Description</th>
       <th>Assigned to</th>
-      <th>Time taken</th>
+      <th>Time Block</th>
       <th></th>
 
       <th></th>
@@ -14,7 +14,8 @@
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
-  <% user_name = TaskTracker.Users.get_user(task.user) %>
+  <% user_num =  if task.user_id == nil, do: 0, else: task.user_id %>
+  <% user_name = TaskTracker.Users.get_user(user_num) %>
     <tr>
       <td><%= task.title %></td>
       <td><%= task.description %></td>
@@ -26,7 +27,8 @@
         <td> <%= user_name.name %></td>
       <% end %>
 
-      <td><%= task.time %></td>
+      <td><%= TaskTracker.TimeBlocks.sum_times(task.id) %></td>
+
       <%= if task.completion do %>
         <td>&#10004;</td>
       <% else %>
@@ -34,7 +36,7 @@
       <% end %>
 
       <td>
-        <%#= link "Show", to: Routes.task_path(@conn, :show, task) %>
+        <%= link "Time", to: Routes.task_path(@conn, :show, task) %>
         <%= link "Edit", to: Routes.task_path(@conn, :edit, task) %>
         <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>

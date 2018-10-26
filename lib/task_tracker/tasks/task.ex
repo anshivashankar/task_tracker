@@ -8,15 +8,23 @@ defmodule TaskTracker.Tasks.Task do
     field :description, :string, default: ""
     field :time, :integer, default: 0
     field :title, :string
-    field :user, :integer, default: 0
+    field :user_num, :integer, default: 0
+    belongs_to :user, TaskTracker.Users.User
+    has_many :time_blocks, TaskTracker.TimeBlocks.TimeBlock
 
     timestamps()
   end
 
   @doc false
   def changeset(task, attrs) do
+    #IO.inspect(attrs)
+    #user_id = case Map.fetch(attrs, "user_id") do
+    #  {:ok, val} -> val
+    #  _ -> nil
+    #end
+    #attrs = Map.put(attrs, "user_id", user_id)
     task
-    |> cast(attrs, [:title, :description, :user, :time, :completion])
-    |> validate_required([:title, :description, :user, :time, :completion])
+    |> cast(attrs, [:title, :description, :user_id, :time, :completion])
+    |> validate_required([:title, :description, :time, :completion])
   end
 end

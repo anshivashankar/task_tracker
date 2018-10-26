@@ -1,5 +1,7 @@
 <h1>Task List</h1>
+<%= if @current_user != nil do %>
 <span><%= link "New Task", to: Routes.task_path(@conn, :new), class: "btn btn-primary"%></span>
+<% end %>
 <table class="table table-striped table-hover">
   <thead class="thead-light">
     <tr>
@@ -36,9 +38,11 @@
       <% end %>
 
       <td>
+        <%= if @current_user != nil do %>
         <%= link "Time", to: Routes.task_path(@conn, :show, task) %>
         <%= link "Edit", to: Routes.task_path(@conn, :edit, task) %>
         <%= link "Delete", to: Routes.task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"] %>
+        <% end %>
       </td>
     </tr>
 <% end %>

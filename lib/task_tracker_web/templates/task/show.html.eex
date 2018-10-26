@@ -1,4 +1,4 @@
-<h1>Edit Time</h1>
+<h1>Edit time of <%= @task.title %> </h1>
 <script>
   window.time_block_path="<%= Routes.time_block_path(@conn, :create) %>";
 </script>
@@ -17,28 +17,75 @@
       <%# Here we display all of the time blocks. %>
       <%= for time_block <- @task.time_blocks do %>
         <tr>
-          <td><%= time_block.start_time %></td>
-          <td><%= time_block.end_time %></td>
+          <td>
+          <input
+            type="datetime-local"
+            id="new_start<%= time_block.id %>"
+            style="display: none;"
+          >
+
+          <p id="new_start_reg<%= time_block.id %>">
+            <%= time_block.start_time %>
+          </p>
+          </td>
+
+          <td>
+          <input
+            type="datetime-local"
+            id="new_end<%= time_block.id %>"
+            style="display: none;"
+          >
+
+          <p id="new_end_reg<%= time_block.id %>">
+            <%= time_block.end_time %>
+          </p>
+          </td>
+          
           <td><%= time_block.id %></td>
           <td>
             <button
-            class="btn btn-link"><%= "Update" %></button>
-            <button
-            id="delete-button"
+            id="update_button<%= time_block.id %>"
+            onClick="window.updateTimeBlock(this)"
+            class="btn btn-link"
             data-time-id="<%= time_block.id %>"
-            class="btn btn-link"><%= "Delete" %></button>
+            data-task-id="<%= @task.id %>"
+            style="display: none;">
+            <%= "Update" %></button>
+
+            <button
+            id="edit_button<%= time_block.id %>"
+            onClick="window.changeUpdateTimeBlock(this)"
+            class="btn btn-link"
+            data-time-id="<%= time_block.id %>">
+            <%= "Update" %></button>
+
+            <button
+            id="delete-button<% time_block.id %>"
+            onClick="window.deleteTimeBlock(this)"
+            class="btn btn-link"
+            data-time-id="<%= time_block.id %>"
+            ><%= "Delete" %></button>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <input type="datetime-local" id="new_start">
+  <input type="datetime-local" id="new_end">
+  <button
+  id="time-block-create"
+  data-task-id="<%= @task.id %>"
+  class="btn btn-secondary">
+  Create New
+  </button>
+  <br>
   <br>
   <%# The below button will be our start/stop time block.%>
   <%# Below button inspired by: http://www.ccs.neu.edu/home/ntuck/courses/2018/09/cs4550/notes/13-ajax/notes.html %>
   <button id="time-block-button"
           class="btn btn-primary"
           data-user-id="<%= @current_user.id %>"
-          data-task-id="<%= @task.id %>">Start Time Block</button>
+          data-task-id="<%= @task.id %>">Start Live Time Block</button>
 </ul>
 
 <span><%= link "Back", to: Routes.task_path(@conn, :index) %></span>
